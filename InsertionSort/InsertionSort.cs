@@ -6,24 +6,42 @@ namespace InsertionSort
 	{
 		static void Main(string[] args)
 		{
-			int[] unsortedArray = new int[] { 5, 2, 4, 6, 1, 3, 12, 123, 65, 7, 24 };
+			int[] unsortedArray1 = new int[] { 5, 2, 4, 6, 1, 3, 12, 123, 65, 7, 24 };
+			int[] unsortedArray2 = new int[] { 5, 2, 4, 6, 1, 3, 12, 123, 65, 7, 24 };
+			int[] unsortedArray3 = new int[] { 5, 2, 4, 6, 1, 3, 12, 123, 65, 7, 24 };
 			
-			var nonDecreasingSortedArray = NonDecreasingInsertionSort(unsortedArray);
+			var nonDecreasingSortedArray = NonDecreasingInsertionSort(unsortedArray1);
 
 			Console.WriteLine("Printing non decreasing sorted array");
-			foreach (var item in nonDecreasingSortedArray)
-			{
-				Console.Write(item + ",");
-			}
+			PrintArray(nonDecreasingSortedArray);
 			Console.WriteLine();
 
-			var nonIncreasingSortedArray = NonIncreasingInsertionSort(unsortedArray);
+			var nonIncreasingSortedArray = NonIncreasingInsertionSort(unsortedArray2);
 			Console.WriteLine("Printing non increasing sorted array");
-			foreach (var item in nonIncreasingSortedArray)
+			PrintArray(nonIncreasingSortedArray);			
+			Console.WriteLine();
+
+			Console.Write("Unsorted array: ");
+			PrintArray(unsortedArray3);
+			Console.WriteLine();
+			Console.WriteLine("Type a value to search in the unsorted array: ");
+			int valueToSearch = int.Parse(Console.ReadLine());
+			int? valueIndex = LinearSearch(unsortedArray3, valueToSearch);
+			if(valueIndex.HasValue)
+			{
+				Console.WriteLine("Value " + unsortedArray3[(int)valueIndex] + " found in the array in the index: " + valueIndex);
+			} else
+			{
+				Console.WriteLine("Value not found");
+			}
+		}
+
+		static void PrintArray(int[] array)
+		{
+			foreach (var item in array)
 			{
 				Console.Write(item + ",");
 			}
-			Console.WriteLine();
 		}
 
 		static int[] NonDecreasingInsertionSort(int[] array)
@@ -60,5 +78,28 @@ namespace InsertionSort
 			}
 			return array;
 		}
+
+
+		// Exercise 2.1-3
+		// Write a linear search, which scans through the sequence,
+		// looking for a value
+		// input: a sequence of n numbers and a value v
+		// output: an index i such that a[i] == v or null if the value
+		// was not found
+		static int? LinearSearch(int[] array, int valueToSearch)
+		{
+			int? valueIndex = null;
+			for(int i = 0; i < array.Length; i++)
+			{
+				if(array[i] == valueToSearch)
+				{
+					valueIndex = i;
+					return valueIndex;
+				}
+			}
+
+			return valueIndex;
+		}
+
 	}
 }
